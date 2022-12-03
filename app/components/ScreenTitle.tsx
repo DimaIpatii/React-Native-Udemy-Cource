@@ -1,0 +1,32 @@
+import React from "react";
+
+// Components
+import { StyleProp, ViewStyle, StyleSheet, Text } from "react-native";
+
+// Types
+interface IScreenTitleProps {
+  title: string;
+  styleOverrview?: StyleProp<ViewStyle>;
+}
+
+const ScreenTitle: React.FunctionComponent<IScreenTitleProps> = (
+  props: IScreenTitleProps
+): JSX.Element => {
+  return (
+    <Text style={[styles.title, props.styleOverrview || {}]}>
+      {props.title}
+    </Text>
+  );
+};
+
+export default ScreenTitle;
+
+const styles = StyleSheet.create({
+  title: {
+    padding: 10,
+    color: "white",
+    fontSize: 24,
+    borderWidth: 2,
+    borderColor: "white",
+  },
+});

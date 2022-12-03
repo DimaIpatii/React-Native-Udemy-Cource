@@ -5,12 +5,14 @@ import {
   StyleSheet,
   ViewStyle,
   StyleProp,
+  TextStyle,
 } from "react-native";
 
 interface IButtonProps {
   onPress: () => void;
   label: string;
   overrideStyles?: StyleProp<ViewStyle>;
+  overrideLabelStyles?: StyleProp<TextStyle>;
 }
 const CustomButton = (props: IButtonProps) => {
   return (
@@ -18,7 +20,9 @@ const CustomButton = (props: IButtonProps) => {
       style={[styles.root, props.overrideStyles || {}]}
       onPress={props.onPress}
     >
-      <Text style={styles.label}>{props.label}</Text>
+      <Text style={[styles.label, props.overrideLabelStyles || {}]}>
+        {props.label}
+      </Text>
     </Pressable>
   );
 };

@@ -5,7 +5,6 @@ import { useNavigation, NavigationProp } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 
 // Store
-import { configureStore, EnhancedStore } from "@reduxjs/toolkit";
 import { useRootState, useDispatchApp } from "../store/hooks";
 import { actions } from "../store/reducers/gameSettingsSlice";
 
@@ -14,23 +13,18 @@ import {
   View,
   Text,
   TextInput,
-  NativeSyntheticEvent,
-  TextInputChangeEventData,
   Alert,
-  AlertButton,
-  Pressable,
   ImageBackground,
   StyleSheet,
   SafeAreaView,
-  Keyboard,
-  TextInputFocusEventData,
 } from "react-native";
 import CustomButton from "../components/CustomButton";
+import ScreenTitle from "../components/ScreenTitle";
 
-// Types
-
-const MainScreen = () => {
-  const gameTarget = useRootState((state) => state.appSettings.tragetNumber);
+const MainScreen = (): JSX.Element => {
+  const gameTarget = useRootState(
+    (state) => state.appSettings.gameTargetNumber
+  );
   const navigation: NavigationProp<any> = useNavigation();
 
   const [gameNumber, setGameNumber] = useState<string>(
@@ -38,14 +32,26 @@ const MainScreen = () => {
   );
   const dispatch = useDispatchApp();
 
-  const confirmGame = (): void => {
+  const startGame = (): void => {
     const { startGame } = actions;
     dispatch(startGame(gameNumber));
     navigation.navigate("Game", { name: "Game" });
   };
 
+  const confirmGame = (): void => {
+    if (gameNumber.length > 0 && gameNumber != "0") {
+      startGame();
+    } else {
+      Alert.alert("Oooppps", "Enter a number between 1 and 99", [
+        {
+          text: "Ok",
+        },
+      ]);
+    }
+  };
+
   const resetGame = (): void => {
-    Alert.alert("Rest game range?", "You will reset current range to '0'.", [
+    Alert.alert("Rest game?", "You will reset the game range to '0'.", [
       {
         onPress: () => {
           setGameNumber("0");
@@ -58,10 +64,10 @@ const MainScreen = () => {
     ]);
   };
 
+  /* ******************************* */
+
   useEffect(() => {
-    if (gameTarget != 0) {
-      setGameNumber(String(gameTarget));
-    }
+    setGameNumber(String(gameTarget));
   }, [gameTarget]);
 
   return (
@@ -72,11 +78,14 @@ const MainScreen = () => {
         resizeMode="cover"
       >
         <LinearGradient
-          colors={["#3b021e8e", "#ff95008d"]}
+          colors={["#3b021edf", "#ff9500a6"]}
           style={{ flex: 1, width: "100%" }}
         >
           <SafeAreaView style={styles.mainContent}>
-            <Text style={styles.title}>Guess My Number</Text>
+            <ScreenTitle
+              styleOverrview={styles.titleWrapper}
+              title="Guess My Number"
+            />
 
             <View style={styles.numberContainer}>
               <Text style={styles.numberTitle}>Enter a Number</Text>
@@ -86,7 +95,6 @@ const MainScreen = () => {
                 keyboardType="numeric"
                 textAlign="center"
                 textContentType="telephoneNumber"
-                //clearTextOnFocus={true}
                 onChangeText={(value: string) => {
                   if (value.length === 0) {
                     setGameNumber(String(0));
@@ -115,11 +123,7 @@ const MainScreen = () => {
                   )}
                 <CustomButton
                   overrideStyles={styles.confirmButton}
-                  onPress={() =>
-                    gameNumber.length > 0 && gameNumber != "0"
-                      ? confirmGame()
-                      : null
-                  }
+                  onPress={confirmGame}
                   label="Confirm"
                 />
               </View>
@@ -142,20 +146,15 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
   },
+  titleWrapper: {
+    marginTop: 80,
+    marginBottom: 30,
+  },
   mainContent: {
     width: "100%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-  },
-  title: {
-    padding: 10,
-    color: "white",
-    fontSize: 24,
-    borderWidth: 2,
-    borderColor: "white",
-    marginTop: 80,
-    marginBottom: 30,
   },
   numberContainer: {
     padding: 14,
