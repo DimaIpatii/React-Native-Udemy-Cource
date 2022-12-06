@@ -6,6 +6,7 @@ import {
   ViewStyle,
   StyleProp,
   TextStyle,
+  View,
 } from "react-native";
 
 interface IButtonProps {
@@ -16,14 +17,20 @@ interface IButtonProps {
 }
 const CustomButton = (props: IButtonProps) => {
   return (
-    <Pressable
-      style={[styles.root, props.overrideStyles || {}]}
-      onPress={props.onPress}
-    >
-      <Text style={[styles.label, props.overrideLabelStyles || {}]}>
-        {props.label}
-      </Text>
-    </Pressable>
+    <View style={[styles.root, props.overrideStyles || {}]}>
+      <Pressable
+        style={({ pressed }) => [
+          styles.buttonContainer,
+          pressed ? styles.buttonPresset : {},
+        ]}
+        onPress={props.onPress}
+        android_ripple={{ color: "#500329" }}
+      >
+        <Text style={[styles.label, props.overrideLabelStyles || {}]}>
+          {props.label}
+        </Text>
+      </Pressable>
+    </View>
   );
 };
 
@@ -31,14 +38,19 @@ export default CustomButton;
 
 const styles = StyleSheet.create({
   root: {
+    overflow: "hidden",
+  },
+  buttonContainer: {
     backgroundColor: "#71063b",
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
     borderRadius: 100,
   },
+  buttonPresset: {
+    opacity: 0.75,
+  },
   label: {
+    fontFamily: "open-sans",
     color: "white",
     textAlign: "center",
   },

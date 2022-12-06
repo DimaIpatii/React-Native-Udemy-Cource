@@ -1,7 +1,8 @@
-import React from "react";
-
 // Outer
 import { useNavigation, NavigationProp } from "@react-navigation/native";
+
+// Global
+import { Colors } from "../utils/variables";
 
 // Store
 import { useDispatchApp, useRootState } from "../store/hooks";
@@ -12,7 +13,6 @@ import RN from "react-native";
 
 // Components
 import {
-  View,
   SafeAreaView,
   Text,
   Image,
@@ -45,7 +45,7 @@ const GameOverScreen = (): JSX.Element => {
       style={styles.backgroundImage}
     >
       <LinearGradient
-        colors={["#3b021edf", "#ff9500a6"]}
+        colors={[Colors.primary400, Colors.secondary400]}
         style={{ flex: 1, width: "100%" }}
       >
         <SafeAreaView style={styles.mainContent}>
@@ -96,13 +96,15 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   summaryText: {
+    fontFamily: "open-sans",
     fontSize: 20,
     marginBottom: 30,
     textAlign: "center",
     lineHeight: 30,
   },
   summaryTextValues: {
-    color: "#640F1C",
+    fontFamily: "open-sans-bold",
+    color: Colors.primary500,
     fontSize: 18,
     fontWeight: "600",
   },

@@ -2,7 +2,6 @@ import { createSlice, CreateSliceOptions } from "@reduxjs/toolkit";
 
 interface IGameSettingsState {
   gameTargetNumber: number;
-  suggestedNumber: number;
   answers: number[];
   startGame: boolean;
 }
@@ -10,7 +9,6 @@ const gameSettingsSlice = createSlice({
   name: "gameSettings",
   initialState: {
     gameTargetNumber: 0,
-    suggestedNumber: 0,
     answers: [],
     startGame: false,
   },
@@ -22,15 +20,11 @@ const gameSettingsSlice = createSlice({
     resetGame: (state, action) => {
       state.gameTargetNumber = 0;
     },
-    updateSuggestedNumber: (state, action) => {
-      state.suggestedNumber = action.payload;
-    },
     updateAnswers: (state, action) => {
       state.answers.push(action.payload);
     },
     newGame: (state, action) => {
       state.gameTargetNumber = 0;
-      state.suggestedNumber = 0;
       state.answers = [];
       state.startGame = false;
     },

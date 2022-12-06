@@ -4,6 +4,9 @@ import { useEffect, useState } from "react";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 
+// Global
+import { Colors } from "../utils/variables";
+
 // Store
 import { useRootState, useDispatchApp } from "../store/hooks";
 import { actions } from "../store/reducers/gameSettingsSlice";
@@ -45,6 +48,7 @@ const MainScreen = (): JSX.Element => {
       Alert.alert("Oooppps", "Enter a number between 1 and 99", [
         {
           text: "Ok",
+          style: "destructive",
         },
       ]);
     }
@@ -78,7 +82,7 @@ const MainScreen = (): JSX.Element => {
         resizeMode="cover"
       >
         <LinearGradient
-          colors={["#3b021edf", "#ff9500a6"]}
+          colors={[Colors.primary400, Colors.secondary400]}
           style={{ flex: 1, width: "100%" }}
         >
           <SafeAreaView style={styles.mainContent}>
@@ -92,7 +96,8 @@ const MainScreen = (): JSX.Element => {
               <TextInput
                 style={styles.numberFiled}
                 value={gameNumber === "0" ? "" : gameNumber}
-                keyboardType="numeric"
+                maxLength={2}
+                keyboardType="number-pad"
                 textAlign="center"
                 textContentType="telephoneNumber"
                 onChangeText={(value: string) => {
@@ -160,22 +165,24 @@ const styles = StyleSheet.create({
     padding: 14,
     width: "90%",
     borderRadius: 10,
-    backgroundColor: "#3B021E",
+    backgroundColor: Colors.primary600,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
   },
   numberTitle: {
-    color: "#D2A65E",
+    fontFamily: "open-sans",
+    color: Colors.secondary500,
     fontSize: 20,
     marginBottom: 10,
   },
   numberFiled: {
+    fontFamily: "open-sans",
     width: 40,
     borderBottomWidth: 2,
-    color: "#D2A65E",
+    color: Colors.secondary500,
     fontSize: 20,
-    borderBottomColor: "#D2A65E",
+    borderBottomColor: Colors.secondary500,
     marginBottom: 15,
   },
   numberButtonsWrapper: {
