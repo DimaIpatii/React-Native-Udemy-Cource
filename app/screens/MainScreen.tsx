@@ -6,6 +6,7 @@ import { LinearGradient } from "expo-linear-gradient";
 
 // Global
 import { Colors } from "../utils/variables";
+import { getDynamicPercentage, getDynamicFontSize } from "../utils/styleMixins";
 
 // Store
 import { useRootState, useDispatchApp } from "../store/hooks";
@@ -152,6 +153,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   titleWrapper: {
+    maxWidth: "80%",
     marginTop: 80,
     marginBottom: 30,
   },
@@ -173,7 +175,7 @@ const styles = StyleSheet.create({
   numberTitle: {
     fontFamily: "open-sans",
     color: Colors.secondary500,
-    fontSize: 20,
+    fontSize: getDynamicFontSize(20),
     marginBottom: 10,
   },
   numberFiled: {
@@ -181,7 +183,7 @@ const styles = StyleSheet.create({
     width: 40,
     borderBottomWidth: 2,
     color: Colors.secondary500,
-    fontSize: 20,
+    fontSize: getDynamicFontSize(20),
     borderBottomColor: Colors.secondary500,
     marginBottom: 15,
   },

@@ -3,6 +3,9 @@ import React from "react";
 // Components
 import { StyleProp, ViewStyle, StyleSheet, Text } from "react-native";
 
+// Styles
+import { getDynamicFontSize } from "../utils/styleMixins";
+
 // Types
 interface IScreenTitleProps {
   title: string;
@@ -13,7 +16,10 @@ const ScreenTitle: React.FunctionComponent<IScreenTitleProps> = (
   props: IScreenTitleProps
 ): JSX.Element => {
   return (
-    <Text style={[styles.title, props.styleOverrview || {}]}>
+    <Text
+      adjustsFontSizeToFit={true}
+      style={[styles.title, props.styleOverrview || {}]}
+    >
       {props.title}
     </Text>
   );
@@ -26,7 +32,7 @@ const styles = StyleSheet.create({
     fontFamily: "open-sans-bold",
     padding: 10,
     color: "white",
-    fontSize: 24,
+    fontSize: getDynamicFontSize(24),
     borderWidth: 2,
     borderColor: "white",
   },

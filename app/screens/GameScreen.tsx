@@ -6,6 +6,7 @@ import { useNavigation, NavigationProp } from "@react-navigation/native";
 // Global
 import { Colors } from "../utils/variables";
 import { generateRundomNumberRange } from "../utils/functions";
+import { getDynamicPercentage, getDynamicFontSize } from "../utils/styleMixins";
 
 // Store
 import { useDispatchApp, useRootState } from "../store/hooks";
@@ -154,7 +155,7 @@ const styles = StyleSheet.create({
     color: Colors.secondary500,
     textAlign: "center",
     borderRadius: 4,
-    fontSize: 30,
+    fontSize: getDynamicFontSize(30),
     fontWeight: "500",
     padding: 20,
     marginBottom: 30,
@@ -170,7 +171,7 @@ const styles = StyleSheet.create({
   },
   buttonsContainerTitle: {
     fontFamily: "open-sans",
-    fontSize: 20,
+    fontSize: getDynamicFontSize(20),
     color: Colors.secondary500,
     marginBottom: 15,
     textAlign: "center",
@@ -182,7 +183,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   buttonLable: {
-    fontSize: 16,
+    fontSize: getDynamicFontSize(16),
   },
   buttonFalse: {
     padding: 1,

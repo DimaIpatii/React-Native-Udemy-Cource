@@ -3,13 +3,13 @@ import { useNavigation, NavigationProp } from "@react-navigation/native";
 
 // Global
 import { Colors } from "../utils/variables";
+import { getDynamicPercentage, getDynamicFontSize } from "../utils/styleMixins";
 
 // Store
 import { useDispatchApp, useRootState } from "../store/hooks";
 import { actions } from "../store/reducers/gameSettingsSlice";
 
 // Global
-import RN from "react-native";
 
 // Components
 import {
@@ -22,8 +22,6 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import ScreenTitle from "../components/ScreenTitle";
 import CustomButton from "../components/CustomButton";
-
-const screenWidth = RN.Dimensions.get("screen").width;
 
 const GameOverScreen = (): JSX.Element => {
   const { answers, gameTargetNumber } = useRootState(
@@ -88,16 +86,16 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   image: {
-    width: (70 * screenWidth) / 100,
-    height: (70 * screenWidth) / 100,
-    borderRadius: (70 * screenWidth) / 100 / 2,
+    width: getDynamicPercentage(70),
+    height: getDynamicPercentage(70),
+    borderRadius: getDynamicPercentage(70) / 2,
     overflow: "hidden",
     marginTop: 30,
     marginBottom: 30,
   },
   summaryText: {
     fontFamily: "open-sans",
-    fontSize: 20,
+    fontSize: getDynamicFontSize(20),
     marginBottom: 30,
     textAlign: "center",
     lineHeight: 30,
@@ -105,7 +103,7 @@ const styles = StyleSheet.create({
   summaryTextValues: {
     fontFamily: "open-sans-bold",
     color: Colors.primary500,
-    fontSize: 18,
+    fontSize: getDynamicFontSize(18),
     fontWeight: "600",
   },
 });
