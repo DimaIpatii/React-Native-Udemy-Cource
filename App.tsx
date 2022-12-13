@@ -1,3 +1,4 @@
+import React from "react";
 import { StatusBar } from "expo-status-bar";
 import MainScreen from "./app/screens/MainScreen";
 import GameScreen from "./app/screens/GameScreen";
@@ -11,25 +12,29 @@ import { Provider } from "react-redux";
 import store from "./app/store/store";
 
 export default function App() {
-  useFonts({
+  const [fontsLoaded] = useFonts({
     "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
     "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf"),
   });
 
-  return (
-    <Provider store={store}>
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          <Stack.Screen name="Home" component={MainScreen} />
-          <Stack.Screen name="Game" component={GameScreen} />
-          <Stack.Screen name="GameOver" component={GameOverScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
-      <StatusBar style="auto" />
-    </Provider>
-  );
+  if (!fontsLoaded) {
+    return null;
+  } else {
+    return (
+      <Provider store={store}>
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              headerShown: false,
+            }}
+          >
+            <Stack.Screen name="Home" component={MainScreen} />
+            <Stack.Screen name="Game" component={GameScreen} />
+            <Stack.Screen name="GameOver" component={GameOverScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+        <StatusBar style="light" />
+      </Provider>
+    );
+  }
 }

@@ -1,3 +1,5 @@
+import React from "react";
+
 // Outer
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 
@@ -80,6 +82,7 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    padding: getDynamicPercentage(5),
   },
 
   title: {

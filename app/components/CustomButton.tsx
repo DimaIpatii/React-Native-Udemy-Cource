@@ -11,7 +11,8 @@ import {
 
 interface IButtonProps {
   onPress: () => void;
-  label: string;
+  children?: React.ReactNode;
+  label?: string;
   overrideStyles?: StyleProp<ViewStyle>;
   overrideLabelStyles?: StyleProp<TextStyle>;
 }
@@ -26,9 +27,13 @@ const CustomButton = (props: IButtonProps) => {
         onPress={props.onPress}
         android_ripple={{ color: "#500329" }}
       >
-        <Text style={[styles.label, props.overrideLabelStyles || {}]}>
-          {props.label}
-        </Text>
+        {props.label ? (
+          <Text style={[styles.label, props.overrideLabelStyles || {}]}>
+            {props.label}
+          </Text>
+        ) : props.children ? (
+          props.children
+        ) : null}
       </Pressable>
     </View>
   );

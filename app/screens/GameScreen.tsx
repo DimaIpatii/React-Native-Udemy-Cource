@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 // Outer
 import { useNavigation, NavigationProp } from "@react-navigation/native";
@@ -21,10 +21,12 @@ import {
   StyleSheet,
   Alert,
   FlatList,
+  Platform,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import ScreenTitle from "../components/ScreenTitle";
 import CustomButton from "../components/CustomButton";
+import { Feather } from "@expo/vector-icons";
 
 let minNumber = 1;
 let maxNumber = 100;
@@ -103,14 +105,26 @@ const GameScreen = () => {
                 overrideStyles={styles.buttonFalse}
                 overrideLabelStyles={styles.buttonLable}
                 onPress={() => checkNumber("lower")}
-                label="-"
-              />
+              >
+                <Feather
+                  name="minus"
+                  size={getDynamicFontSize(16)}
+                  color="white"
+                  style={{ textAlign: "center" }}
+                />
+              </CustomButton>
               <CustomButton
                 overrideStyles={styles.buttonTrue}
                 overrideLabelStyles={styles.buttonLable}
                 onPress={() => checkNumber("higher")}
-                label="+"
-              />
+              >
+                <Feather
+                  name="plus"
+                  size={getDynamicFontSize(16)}
+                  color="white"
+                  style={{ textAlign: "center" }}
+                />
+              </CustomButton>
             </View>
           </View>
 
@@ -141,24 +155,27 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    paddingTop: Platform.OS === "android" ? 25 : 0,
   },
   title: {
-    width: "90%",
+    width: "70%",
     textAlign: "center",
     marginBottom: 20,
   },
   suggestedNumber: {
     fontFamily: "open-sans-bold",
-    width: "70%",
+    //width: "70%",
+    width: 100,
     borderWidth: 4,
     borderColor: Colors.secondary500,
     color: Colors.secondary500,
-    textAlign: "center",
     borderRadius: 4,
     fontSize: getDynamicFontSize(30),
     fontWeight: "500",
     padding: 20,
     marginBottom: 30,
+    textAlign: "center",
+    textAlignVertical: "center",
   },
   buttonsContainer: {
     padding: 14,
